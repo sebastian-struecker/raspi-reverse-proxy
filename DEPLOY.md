@@ -59,41 +59,6 @@ docker compose logs -f nginx
 
 ## Configuring Applications to Use the Reverse Proxy
 
-### Internet Speed Monitor
-
-Update your internet speed monitor's `docker-compose.yml` to join the network:
-
-```yaml
-services:
-  speedtest:
-    # ... existing config ...
-    networks:
-      - webapps_network
-
-  dashboard:
-    container_name: speedmon-dashboard  # Must match conf.d/speedmon.conf
-    # ... existing config ...
-    # REMOVE the ports section - nginx handles external access
-    networks:
-      - webapps_network
-
-networks:
-  webapps_network:
-    external: true
-```
-
-Then restart the speed monitor:
-
-```bash
-cd /apps/internet-speed-monitor
-docker compose down
-docker compose up -d --build
-```
-
-Access at: `http://<raspberry-pi-ip>:8080/internet-speed-monitor/`
-
-## Adding New Applications
-
 ### 1. Create App Configuration
 
 Create a new file in `conf.d/` directory:
