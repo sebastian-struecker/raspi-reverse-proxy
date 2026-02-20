@@ -1,0 +1,15 @@
+# Nginx logs
+logs/*.log
+
+# IDE
+.idea/
+
+# Docker volumes
+logs/*
+!logs/.gitkeep
+
+# macOS
+.DS_Store
+
+# Disabled configurations
+conf.d/*.disabled
