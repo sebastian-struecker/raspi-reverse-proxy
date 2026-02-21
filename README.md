@@ -1,6 +1,7 @@
 # Nginx Reverse Proxy for Raspberry Pi
 
-Standalone nginx reverse proxy for hosting multiple web applications on one Raspberry Pi with **modular, per-app configuration**.
+Standalone nginx reverse proxy for hosting multiple web applications on one Raspberry Pi with **modular, per-app
+configuration**.
 
 ## Architecture
 
@@ -57,14 +58,16 @@ See [DEPLOY.md](DEPLOY.md) for complete deployment instructions.
 1. Create `conf.d/your-app.conf`:
    ```nginx
    location /your-app/ {
-       set $upstream http://your-container-name:PORT;
-       proxy_pass $upstream/;
-       rewrite ^/your-app/(.*)$ /$1 break;
+       proxy_pass hhttp://your-container-name:PORT;
 
        proxy_set_header Host $host;
        proxy_set_header X-Real-IP $remote_addr;
        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
        proxy_set_header X-Forwarded-Proto $scheme;
+
+       proxy_connect_timeout 30s;
+       proxy_send_timeout 30s;
+       proxy_read_timeout 30s;
    }
    ```
 
